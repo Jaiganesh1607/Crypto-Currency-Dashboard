@@ -35,6 +35,7 @@ Follow these steps to run the project locally on your machine:
 git clone https://github.com/Jaiganesh1607/Crypto-Currency-Dashboard.git
 cd crypto-dashboard-django
 ```
+Or download the zip file [dashboard_project.zip](https://github.com/Jaiganesh1607/Crypto-Currency-Dashboard/blob/main/dashboard_project.zip) from the repository and extract its contents 
 
 2.Create a new virtual environment:
 
