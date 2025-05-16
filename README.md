@@ -83,6 +83,27 @@ venv\Scripts\activate
 
 Open your browser and go to: [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to access the login page and signup using new username and password
 
+### Project Objective
+The goal of this project was to build a dynamic and visually appealing **Cryptocurrency Dashboard** using Django that displays real-time crypto data from the CoinGecko API without requiring any API key. The dashboard provides key metrics and trends in a simple and accessible manner for users.
+
+
+###  Design Decisions
+
+- **No Database Required**: The app does not store fetched data, keeping it lightweight and fast.
+- **API Without Key**: Chose CoinGecko API specifically to remove the need for API key setup for beginners.
+- **Minimal Dependencies**: Used only essential libraries to simplify setup and ensure compatibility.
+- **Deployment Ready**: Designed with clean structure and versioned `requirements.txt` for easy deployment or local testing.
+
+---
+
+###  Testing & Validation
+- Manually tested all views and endpoints.
+- Validated rendering of charts and coin data against live CoinGecko data.
+- Verified UI responsiveness across devices.
+
+---
+
+
 ## License
 
 - MIT License ©  Jaiganesh1607
