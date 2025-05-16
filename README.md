@@ -54,20 +54,20 @@ On Windows:
 venv\Scripts\activate
 ```
 
-Install the dependencies for this project if you haven't installed them yet:
+4. Install the dependencies for this project if you haven't installed them yet:
 
 ```command prompt
 (venv)  python -m pip install -r requirements.txt
 ```
 
-Make and apply the migrations for the project to build your local database:
+5. Make and apply the migrations for the project to build your local database:
 
 ```command prompt
 (venv)  python manage.py makemigrations
 (venv)  python manage.py migrate
 ```
 
-Run the Django development server:
+6.Run the Django development server:
 
 ```command prompt
 (venv)  python manage.py runserver
