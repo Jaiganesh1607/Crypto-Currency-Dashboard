@@ -32,7 +32,7 @@ Follow these steps to run the project locally on your machine:
 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Jaiganesh1607/Crypto-Dashboard.git
+git clone https://github.com/Jaiganesh1607/Crypto-Currency-Dashboard.git
 cd crypto-dashboard-django
 ```
 
