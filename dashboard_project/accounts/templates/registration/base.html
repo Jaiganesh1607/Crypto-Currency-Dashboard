@@ -1,0 +1,14 @@
+<!-- templates/base.html -->
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Dashboard{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/accounts.css'%}">
+</head>
+<body>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

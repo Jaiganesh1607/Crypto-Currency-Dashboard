@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💰 Crypto Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+<h1>📈 Crypto Currency Dashboard</h1>
+
+<nav>
+    <ul>
+      <li><a href="#market-cap">Market Cap</a></li>
+      <li><a href="#btc-price">Bitcoin Price</a></li>
+      <li><a href="#price-change-bar">Price Change</a></li>
+      <li><a href="#cointable">Top Coins</a></li>
+      <li><a href="#trendingcoins">Trending</a></li>
+      <li><a href="#logout">Logout</a></li>
+    </ul>
+  </nav>
+  
+<div class="dashboard">
+  <!-- Pie Chart: Market Cap Distribution -->
+  <div id="market-cap">
+    <h3>Top 5 Coins by Market Cap</h3>
+    <canvas id="marketCapChart"></canvas>
+  </div>
+
+  <!-- Line Chart: BTC Price Trend -->
+  <div id="btc-price">
+    <h3>Bitcoin Price (Last 7 Days)</h3>
+    <canvas id="btcChart"></canvas>
+  </div>
+  <!-- Bar Chart: 24h Price Change -->
+  <div id="price-change-bar">
+    <h3>Top Coins: 24h Change (%)</h3>
+    <canvas id="barChart"></canvas>
+  </div>
+  <!-- Table: Top 5 Coins -->
+  <div class="coin-table" id="cointable">
+    <h3>Top Coins</h3>
+    <!-- Search and Sorting Controls -->
+<div style="margin-bottom: 10px;">
+  <input type="text" id="coinSearch" placeholder="🔍 Search coin or symbol..." style="padding: 6px; width: 250px; border-radius: 5px; border: 1px solid #ccc;">
+</div>
+    <table id="coinTable">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0)">Coin ⬍</th>
+      <th onclick="sortTable(1)">Symbol ⬍</th>
+      <th onclick="sortTable(2)">Price (USD) ⬍</th>
+      <th onclick="sortTable(3)">24h Change (%) ⬍</th>
+    </tr>
+  </thead>
+  <tbody id="coinTableBody">
+    {% for coin in data.top_coins %}
+    <tr>
+      <td>{{ coin.name }}</td>
+      <td>{{ coin.symbol|upper }}</td>
+      <td>${{ coin.current_price }}</td>
+      <td style="color: {% if coin.price_change_percentage_24h >= 0 %}green{% else %}red{% endif %}">
+        {{ coin.price_change_percentage_24h|floatformat:2 }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+  <!-- Trending Coins -->
+  <div class="trending-coins" id="trendingcoins">
+    <h3>🔥 Trending Coins</h3>
+    {% for coin in data.trending_coins %}
+    <div>
+      <img src="{{ coin.icon }}" alt="{{ coin.name }}">
+      {{ coin.name }} ({{ coin.symbol|upper }})
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{{ data|json_script:"dashboard-data" }}
+
+<script>
+  const data = JSON.parse(document.getElementById('dashboard-data').textContent);
+
+  // Pie chart: Market Cap
+  const pieCtx = document.getElementById('marketCapChart');
+  new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+      labels: data.pie_labels,
+      datasets: [{
+        label: 'Market Cap',
+        data: data.pie_values,
+        backgroundColor: ['#4caf50', '#2196f3', '#ff9800', '#9c27b0', '#e91e63']
+      }]
+    }
+  });
+
+  // Line chart: BTC Trend
+  const btcCtx = document.getElementById('btcChart');
+  const timestamps = data.btc_dates.map(ts => new Date(ts).toLocaleDateString());
+  const prices = data.btc_values;
+
+  new Chart(btcCtx, {
+    type: 'line',
+    data: {
+      labels: timestamps,
+      datasets: [{
+        label: 'BTC Price (USD)',
+        data: prices,
+        borderColor: '#ff5722',
+        fill: false,
+        tension: 0.3
+      }]
+    }
+  });
+
+  // Bar chart: 24h Price Change
+const barCtx = document.getElementById('barChart');
+new Chart(barCtx, {
+  type: 'bar',
+  data: {
+    labels: data.bar_labels,
+    datasets: [{
+      label: '24h Change (%)',
+      data: data.bar_values,
+      backgroundColor: data.bar_values.map(value => value >= 0 ? '#4caf50' : '#f44336')
+    }]
+  },
+  options: {
+    animation: {
+      duration: 1500, 
+      easing: 'easeOutBounce' 
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        enabled: true
+      }
+    }
+  }
+});
+
+// Search filter
+  document.getElementById("coinSearch").addEventListener("keyup", function () {
+    const filter = this.value.toUpperCase();
+    const rows = document.querySelector("#coinTableBody").rows;
+
+    for (let row of rows) {
+      const coin = row.cells[0].innerText.toUpperCase();
+      const symbol = row.cells[1].innerText.toUpperCase();
+      row.style.display = (coin.includes(filter) || symbol.includes(filter)) ? "" : "none";
+    }
+  });
+
+  // Sorting function
+  function sortTable(columnIndex) {
+    const table = document.getElementById("coinTable");
+    const tbody = table.tBodies[0];
+    const rows = Array.from(tbody.rows);
+    const isNumeric = columnIndex >= 2;
+
+    const sortedRows = rows.sort((a, b) => {
+      const valA = isNumeric ? parseFloat(a.cells[columnIndex].innerText.replace('$', '')) : a.cells[columnIndex].innerText;
+      const valB = isNumeric ? parseFloat(b.cells[columnIndex].innerText.replace('$', '')) : b.cells[columnIndex].innerText;
+
+      return valA > valB ? 1 : -1;
+    });
+
+    // Toggle sort order
+    if (tbody.getAttribute("data-sorted") === String(columnIndex)) {
+      sortedRows.reverse();
+      tbody.setAttribute("data-sorted", "");
+    } else {
+      tbody.setAttribute("data-sorted", columnIndex);
+    }
+
+    tbody.innerHTML = "";
+    sortedRows.forEach(row => tbody.appendChild(row));
+  }
+  
+</script>
+
+<form id="logout" method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+
+</body>
+</html>
