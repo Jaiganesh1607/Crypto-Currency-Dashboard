@@ -25,6 +25,12 @@ A sleek and informative cryptocurrency dashboard built with **Django** that disp
 - Error handling with custom 404 and 500 pages
 
 ---
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- **Python 3.11+** installed  
+- **pip** (Python package manager)
 
 ## Local Setup Instructions
 Follow these steps to run the project locally on your machine:
