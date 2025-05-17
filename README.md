@@ -83,6 +83,22 @@ venv\Scripts\activate
 
 Open your browser and go to: [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to access the login page and signup using new username and password
 
+
+# Screenshots
+
+## Login page
+![Screenshot 2025-05-17 133813](https://github.com/user-attachments/assets/f74f5d90-9154-4116-8ae6-a835ddf1838a)
+
+## Signup page
+![Screenshot 2025-05-17 133915](https://github.com/user-attachments/assets/cb90d1f9-bb14-4ea1-bc25-bfe6fb42c2b4)
+
+## DashBoard
+![Screenshot 2025-05-17 133827](https://github.com/user-attachments/assets/32de90cb-ced7-43fc-925e-489af70d2b20)
+
+![Screenshot 2025-05-17 133842](https://github.com/user-attachments/assets/0d3f8437-e210-4589-94fc-57b2565bb5e0)
+
+![Screenshot 2025-05-17 133903](https://github.com/user-attachments/assets/8f37f086-8974-4f72-9da3-b1fc44339f0a)
+
 ### Project Objective
 The goal of this project was to build a dynamic and visually appealing **Cryptocurrency Dashboard** using Django that displays real-time crypto data from the CoinGecko API without requiring any API key. The dashboard provides key metrics and trends in a simple and accessible manner for users.
 
@@ -102,7 +118,17 @@ The goal of this project was to build a dynamic and visually appealing **Cryptoc
 - Verified UI responsiveness across devices.
 
 ---
+# Uses
+This cryptocurrency dashboard can be utilized in a variety of real-world scenarios:
 
+- ### Personal Finance Monitoring :
+  Track real-time cryptocurrency trends to make better investment decisions.
+
+- ### Market Research :
+  Quickly analyze trending coins, market cap distributions, and price movements without needing an account or API key.
+
+- ### Crypto Startups :
+  Serve as a prototype or MVP for building a more advanced trading, analytics, or portfolio management platform.
 
 ## License
 
