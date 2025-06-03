@@ -11,7 +11,7 @@ A sleek and informative cryptocurrency dashboard built with **Django** that disp
 ---
 # Tech Stack
 - **Backend**: Django 5.1.5
-- **Frontend**: HTML5, CSS3, Bootstrap 5
+- **Frontend**: HTML5, CSS3
 - **Charts**: Chart.js
 - **API**: CoinGecko (no API key required)
 - **Authentication**: Django’s built-in login system
